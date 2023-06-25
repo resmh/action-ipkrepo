@@ -173,8 +173,8 @@ while read -r pkgfile; do
 done < <(find "${INPUT_INPUT}" -iname '*.ipk')
 echo "Processing completed."
 
-if ! addGpgSignature(); then strictExit 4 "Failed to gpg sign package index."; fi
-if ! addSignifySignature(); then strictExit 4 "Failed to signify sign package index."; fi
+if ! addGpgSignature; then strictExit 4 "Failed to gpg sign package index."; fi
+if ! addSignifySignature; then strictExit 4 "Failed to signify sign package index."; fi
 
 echo "Repository created."
 
