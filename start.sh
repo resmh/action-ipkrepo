@@ -80,20 +80,22 @@ function addPackage() {
 	local PKG="$1"
 
 	# GET IPK CONTROL FILE TEXT WITHOUT SIZE AND HASH
-	if ! pkginfo=$(tar -zxOf $PKG control.tar.gz | tar -zxO './control' | sed '/^Size: .*/d' | sed '/^SHA256sum: .*/d'); then echo "Failed to extract package info"; return 2; fi
+	if ! pkginfo=$(tar -zxOf "$PKG" control.tar.gz | tar -zxO './control' | sed '/^Size: .*/d' | sed '/^SHA256sum: .*/d'); then echo "Failed to extract package info"; return 2; fi
 	echo "Package info:"
 	echo "$pkginfo"
 	
 	# DETERMINE SIZE AND HASH
-	if ! pkgsize=$(stat -c %s $PKG); then echo "Failed to determine package size"; return 3; fi
-	if ! pkghash=$(sha256sum $PKG | grep -o "^[^ ]*"); then echo "Failed to determine package hash"; return 4; fi
+	if ! pkgsize=$(stat -c %s "$PKG"); then echo "Failed to determine package size"; return 3; fi
+	if ! pkghash=$(sha256sum "$PKG" | grep -o "^[^ ]*"); then echo "Failed to determine package hash"; return 4; fi
 	
 	# APPEND PACKAGE INFO TO INDEX
 	echo "$pkginfo" >> "${INPUT_OUTPUT}/Packages"
 
 	# APPEND PACKAGE SIZE AND HASH FIELDS TO INDEX
-	echo "Size: $pkgsize" >> ./Packages
-	echo "SHA256sum: $pkghash" >> ./Packages
+	echo "Package size is: $pkgsize"
+	echo "Size: $pkgsize" >> "${INPUT_OUTPUT}/Packages"
+	echo "Package hash is: $pkghash"
+	echo "SHA256sum: $pkghash" "${INPUT_OUTPUT}/Packages"
 	
 	# APPEND SEPARATING EMPTY LINE
 	echo "" >> "${INPUT_OUTPUT}/Packages"
