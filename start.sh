@@ -63,7 +63,8 @@ function includeCache() {
 		touch "${INPUT_INPUT}/Packages"
 	else
 		echo "Including cache file"
-		if ! cp "$INPUT_CACHE" "${INPUT_OUTPUT}/Packages"; then echo "Failed to include cache file"; return 1; fi		
+		if ! cp "$INPUT_CACHE" "${INPUT_OUTPUT}/Packages"; then echo "Failed to include cache file"; return 1; fi
+		echo "" >> "${INPUT_OUTPUT}/Packages"
 	fi
 	return 0
 
@@ -91,6 +92,9 @@ function addPackage() {
 	# APPEND PACKAGE SIZE AND HASH FIELDS TO INDEX
 	echo "Size: $pkgsize" >> ./Packages
 	echo "SHA256sum: $pkghash" >> ./Packages
+	
+	# APPEND SEPARATING EMPTY LINE
+	echo "" >> "${INPUT_OUTPUT}/Packages"
 
 	return 0
 	
