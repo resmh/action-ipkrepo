@@ -184,7 +184,7 @@ echo "Processing completed."
 if ! addGpgSignature; then strictExit 4 "Failed to gpg sign package index."; fi
 if ! addSignifySignature; then strictExit 4 "Failed to signify sign package index."; fi
 
-echo "Overall package index:"
+echo "Overall package index at ${INPUT_OUTPUT}/Packages:"
 cat "${INPUT_OUTPUT}/Packages"
 
 echo "Repository created."
