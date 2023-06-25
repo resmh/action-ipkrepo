@@ -18,10 +18,6 @@ inputs:
     description: 'Target packages folder.'
     required: false
     default: '.'
-  sign:
-    description: 'Sign repository package list.'
-    required: false
-    default: '0'
   privategpg:
     description: 'Optional gpg key.'
     required: false

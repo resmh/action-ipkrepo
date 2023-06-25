@@ -19,13 +19,12 @@
 
 set -e
 
+INPUT_STRICT=${INPUT_STRICT:-''}
 INPUT_INPUT=${INPUT_INPUT:-'.'}
 INPUT_OUTPUT=${INPUT_OUTPUT:-'.'}
-INPUT_SIGN=${INPUT_SIGN:-''}
 INPUT_PRIVATEGPG=${INPUT_PRIVATEGPG:-''}
 INPUT_PRIVATESIGNIFY=${INPUT_PRIVATESIGNIFY:-''}
 INPUT_CACHE=${INPUT_CACHE:-''}
-INPUT_STRICT=${INPUT_STRICT:-''}
 #INPUT_=${INPUT_:-''}
 
 
@@ -184,14 +183,8 @@ while read -r pkgfile; do
 done < <$(find "${INPUT_INPUT}" -iname '*.ipk')
 echo "Processing completed."
 
-if [ ! "$INPUT_SIGN" == "1" ]; then
-
-	echo "Signing package index"
-	if ! addGpgSignature(); then strictExit 4 "Failed to sign package index."; fi
-	if ! addSignifySignature(); then strictExit 4 "Failed to sign package index."; fi
-	echo "Package index signed."
-	
-fi
+if ! addGpgSignature(); then strictExit 4 "Failed to gpg sign package index."; fi
+if ! addSignifySignature(); then strictExit 4 "Failed to signify sign package index."; fi
 
 echo "Repository created."
 
