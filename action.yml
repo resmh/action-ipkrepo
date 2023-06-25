@@ -1,0 +1,38 @@
+name: 'action-ipkrepo'
+description: 'Creates a signed opkg repository from a folder of ipk packages'
+author: "resmh"
+inputs:
+  strict:
+    description: 'Fail if any single package or signature step fails.'
+    required: false
+    default: ''
+  cache:
+    description: 'Optionally include cache file if present.'
+    required: false
+    default: ''
+  input:
+    description: 'Source packages folder.'
+    required: false
+    default: '.'
+  output:
+    description: 'Target packages folder.'
+    required: false
+    default: '.'
+  sign:
+    description: 'Sign repository package list.'
+    required: false
+    default: '0'
+  privategpg:
+    description: 'Optional gpg key.'
+    required: false
+    default: ''
+  privatesignify:
+    description: 'Optional signify key.'
+    required: false
+    default: ''
+runs:
+  using: 'node18'
+  main: 'start.js'
+branding:
+  icon: 'arrow-up-circle'
+  color: 'green'
