@@ -81,6 +81,8 @@ function addPackage() {
 
 	# GET IPK CONTROL FILE TEXT WITHOUT SIZE AND HASH
 	if ! pkginfo=$(tar -zxOf $PKG control.tar.gz | tar -zxO './control' | sed '/^Size: .*/d' | sed '/^SHA256sum: .*/d'); then echo "Failed to extract package info"; return 2; fi
+	echo "Package info:"
+	echo "$pkginfo"
 	
 	# DETERMINE SIZE AND HASH
 	if ! pkgsize=$(stat -c %s $PKG); then echo "Failed to determine package size"; return 3; fi
