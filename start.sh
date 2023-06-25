@@ -168,7 +168,7 @@ echo "Processing ipk files in ${INPUT_INPUT}"
 while read -r pkgfile; do
 
 	echo "Processing $pkgfile"
-	if ! addPackage pkgfile; then strictExit 3 "Failed to process $pkgfile"; fi
+	if ! addPackage $pkgfile; then strictExit 3 "Failed to process $pkgfile"; fi
 
 done < <(find "${INPUT_INPUT}" -iname '*.ipk')
 echo "Processing completed."
