@@ -14,4 +14,20 @@ Example using repository secrets for base64 key storage:
           cache: '' (optional cached package index)
           strict: 0 (0/1)
           
-Keys are generated using gpg --gen-key without setting a passphrase followed by an --armored --export-secret-key as well as signify-openbsd -G -n -p key.pub -s key.sec. They are then subjected to the base64 utility and finally configured as action secret. The resulting files are ready to use as opkg repository.
+Keys are generated using gpg --gen-key without setting a passphrase followed by an --armored --export-secret-key as well as signify-openbsd -G -n -p key.pub -s key.sec. They are then subjected to the base64 utility and finally configured as action secret.
+
+```gpg --gen-key
+gpg --export --armor <key-name> >> key.pub
+gpg --export-secret-key --armor <key-name> >> key.priv
+cat key.priv | base64
+
+gpg --delete-key openwrt-repository
+gpg --delete-secret-key openwrt-repository
+rm key.pub
+rm key.priv
+
+signify-openbsd -G -n -p key.pub -s key.sec
+cat key.sec | base64
+rm key.pub
+rm key.sec
+```
