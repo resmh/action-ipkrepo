@@ -133,7 +133,7 @@ function addGpgSignature() {
 function addSignifySignature() {
 
 	if [ "$INPUT_PRIVATESIGNIFY" == "" ]; then echo "Skipping signify signature"; return 0; fi
-	echo "Signing package index with gpg"
+	echo "Signing package index with signify"
 		
 	if ! which signify-openbsd; then
 		echo "Installing signify-openbsd..."
