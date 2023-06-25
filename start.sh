@@ -143,8 +143,8 @@ function addSignifySignature() {
 	echo "Importing key"
 	if ! echo -n "$INPUT_PRIVATESIGNIFY" | base64 --decode > "key.sec"; then echo "Failed to import key"; return 3; fi
 		
-	echo "Creating signature  Packages.sig"
-	if ! signify-openbsd -S -s "key.sec" -m "Packages"; then
+	echo "Creating signature ${INPUT_OUTPUT}/Packages.sig"
+	if ! signify-openbsd -S -s "key.sec" -m "${INPUT_OUTPUT}/Packages"; then
 		rm "key.sec"
 		echo "Failed to create signature"
 		return 4
