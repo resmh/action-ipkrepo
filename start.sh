@@ -97,9 +97,6 @@ function addPackage() {
 	echo "Package hash is: $pkghash"
 	echo "SHA256sum: $pkghash" >> "${INPUT_OUTPUT}/Packages"
 	
-	echo "Package result:"
-	cat "${INPUT_OUTPUT}/Packages"
-	
 	# APPEND SEPARATING EMPTY LINE
 	echo "" >> "${INPUT_OUTPUT}/Packages"
 
@@ -187,9 +184,11 @@ echo "Processing completed."
 if ! addGpgSignature; then strictExit 4 "Failed to gpg sign package index."; fi
 if ! addSignifySignature; then strictExit 4 "Failed to signify sign package index."; fi
 
+echo "Overall package index:"
+cat "${INPUT_OUTPUT}/Packages"
+
 echo "Repository created."
 
-echo "Successfully packed ${INPUT_PKGNAME}.ipk."
 exit 0
 
 
