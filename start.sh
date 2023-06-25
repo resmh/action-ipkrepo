@@ -103,7 +103,7 @@ function addPackage() {
 
 function addGpgSignature() {
 	
-	if [ ! "$INPUT_PRIVATEGPG" == "" ]; then return 0; fi
+	if [ "$INPUT_PRIVATEGPG" == "" ]; then return 0; fi
 	echo "Signing package index with gpg"
 
 	echo "Importing key"
@@ -124,7 +124,7 @@ function addGpgSignature() {
 
 function addSignifySignature() {
 
-	if [ ! "$INPUT_PKGSIGNIFYREPOKEY" == "" ]; then return 0; fi
+	if [ "$INPUT_PRIVATESIGNIFY" == "" ]; then return 0; fi
 	echo "Signing package index with gpg"
 		
 	if ! which signify-openbsd; then
