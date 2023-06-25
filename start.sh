@@ -95,7 +95,10 @@ function addPackage() {
 	echo "Package size is: $pkgsize"
 	echo "Size: $pkgsize" >> "${INPUT_OUTPUT}/Packages"
 	echo "Package hash is: $pkghash"
-	echo "SHA256sum: $pkghash" "${INPUT_OUTPUT}/Packages"
+	echo "SHA256sum: $pkghash" >> "${INPUT_OUTPUT}/Packages"
+	
+	echo "Package result:"
+	cat "${INPUT_OUTPUT}/Packages"
 	
 	# APPEND SEPARATING EMPTY LINE
 	echo "" >> "${INPUT_OUTPUT}/Packages"
