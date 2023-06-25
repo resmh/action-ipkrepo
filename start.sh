@@ -107,7 +107,7 @@ function addGpgSignature() {
 	echo "Signing package index with gpg"
 
 	echo "Importing key"
-	if ! echo -n "$INPUT_PKGGPGREPOKEY" | base64 --decode | gpg --import; then echo "Failed to import key"; return 2; fi
+	if ! echo -n "$INPUT_PRIVATEGPG" | base64 --decode | gpg --import; then echo "Failed to import key"; return 2; fi
 
 	echo "Creating signature Packages.asc" 
 	if ! gpg -a --output "${INPUT_OUTPUT}/Packages.asc" --detach-sig "${INPUT_OUTPUT}/Packages"; then echo "Failed to create signature"; return 3; fi
@@ -133,7 +133,7 @@ function addSignifySignature() {
 	fi			
 
 	echo "Importing key"
-	if ! echo -n "$INPUT_PKGSIGNIFYREPOKEY" | base64 --decode > "key.sec"; then echo "Failed to import key"; return 3; fi
+	if ! echo -n "$INPUT_PRIVATESIGNIFY" | base64 --decode > "key.sec"; then echo "Failed to import key"; return 3; fi
 		
 	echo "Creating signature  Packages.sig"
 	if ! signify-openbsd -S -s "key.sec" -m "Packages"; then
